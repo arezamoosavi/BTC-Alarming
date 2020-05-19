@@ -30,4 +30,4 @@ WORKDIR /main
 COPY ./dockerfiles/py/boot.sh /boot.sh
 RUN chmod +x /boot.sh
 
-ENTRYPOINT ["/boot.sh"]
+CMD ["/boot.sh"]
