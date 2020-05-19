@@ -16,7 +16,3 @@ class DBInit:
         
         print("all USD: ")
         print(await BTC_USD.all())
-
-
-if __name__ == "__main__":
-    run_async(run())

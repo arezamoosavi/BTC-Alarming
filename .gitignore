@@ -231,3 +231,5 @@ pip-selfcheck.json
 
 # not
 script_handy
+project/main/btc-app-data
+project/main/1-data

@@ -28,4 +28,9 @@ while python createdb.py; do echo 'tortoise db is creating...'; sleep 2; done;
 
 echo ". . . . . Tortoise Is Done! . . . . ."
 
+while python faust_runner.py; do echo 'faust is running...'; sleep 2; done;
+
+echo ". . . . . Faust Is Done! . . . . ."
+
+
 exec "$@"

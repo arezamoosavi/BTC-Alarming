@@ -21,7 +21,7 @@ services:
   #   build:
   #     context: .
   #     dockerfile: ./dockerfiles/py/Dockerfile
-  #   command: faust -A hello_world worker -l info --loglevel=INFO
+  #   command: faust -A myproj.apps:faust_app worker -l info
   #   env_file:
   #     - ./.envs/.database
   #   volumes:

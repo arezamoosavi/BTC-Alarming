@@ -2,3 +2,6 @@ POSTGRES_URL=postgres://user:password@postgres:5432/db
 POSTGRES_USER=user
 POSTGRES_PASSWORD=password
 POSTGRES_DB=db
+
+REDIS_SERVER=redis://redis:6379/0
+KAFKA_SERVER=kafka://kafka:9092
