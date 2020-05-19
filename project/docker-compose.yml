@@ -56,7 +56,6 @@ services:
       - "6379"
     command: [ "redis-server", "--protected-mode", "no" ]
     hostname: redis
-    container_name: recsys_redis_2
     restart: on-failure
 
 
