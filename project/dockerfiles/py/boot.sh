@@ -23,4 +23,9 @@ while python run_app.py; do echo 'geting bitcoin value...'; sleep 2; done;
 
 echo ". . . . . Bitcoin Conn Is Done! . . . . ."
 
+
+while python createdb.py; do echo 'tortoise db is creating...'; sleep 2; done;
+
+echo ". . . . . Tortoise Is Done! . . . . ."
+
 exec "$@"

@@ -1,6 +1,9 @@
 import httpx
 from time import sleep
-from db.db_handler import BTC
+from pydantic import BaseModel
+
+class BTC(BaseModel):
+    amount: float
 
 async def printHandler(item: BTC):
     btc_obj = BTC(**item)
