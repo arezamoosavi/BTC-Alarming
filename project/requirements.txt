@@ -1,0 +1,10 @@
+httpx==0.12.1
+tortoise-orm
+asyncpg==0.20.1
+pydantic==1.5.1
+
+faust
+faust[uvloop,fast,rocksdb,redis]
+asyncio
+asgiref
+syncer

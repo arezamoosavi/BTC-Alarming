@@ -1,0 +1,9 @@
+*.log
+__pycache__/
+.env/
+.vscode
+*.md
+*.sqlite3
+
+#migration
+server/main/migrations
