@@ -1,5 +1,5 @@
 from tortoise import run_async
-from db.handler import DBInit
+from db.handler import DBPostgre
 import logging
 
 logging.basicConfig(filename='logfiles.log',
@@ -11,7 +11,7 @@ logging.basicConfig(filename='logfiles.log',
 if __name__ == "__main__":
 
     try:
-        run_async(DBInit.create_all())
+        run_async(DBPostgre.create_all())
 
         print('DBs are created!')
 

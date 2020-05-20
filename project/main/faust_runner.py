@@ -1,6 +1,6 @@
 import logging
 import asyncio
-from app.faust_task import app, adding, greet
+from app.faust_task import app, getnumber, greet, getdict
 
 logging.basicConfig(filename='faustLogs.log',
                     level=logging.DEBUG,
@@ -8,17 +8,21 @@ logging.basicConfig(filename='faustLogs.log',
 
 async def main():
 
-
+    
     await app.start()
     print("app is running. . . . ")
 
-    import random
-    print('gre:1!')
-    greeting = "HIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+    print('1: Fasust Greeting:')
+    greeting = "1: HI First Faust Task Is Done! . . . "
     await greet.send(value=greeting)
 
-    print('\n\n', 'adding: 2 . . . . ')
-    print(await adding.ask(value=random.randint(1, 55)))
+    print('2: Fasust Math: ')
+    print(await getnumber.ask(value=85))
+
+    print('3: Faust dic phaze!')
+    print('3: outside:', await getdict.ask(value={'a': 5, 'b': 7}))
+
+
 
 
 if __name__ == '__main__':

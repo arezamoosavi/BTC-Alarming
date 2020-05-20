@@ -14,27 +14,27 @@ services:
       - ./.envs/.database
     depends_on:
       - postgres
-      - faust
     restart: "no"
 
-  faust:
-    build:
-      context: .
-      dockerfile: ./dockerfiles/py/Dockerfile
-    command: faust -A app.faust_task:app worker -l info
-    env_file:
-      - ./.envs/.database
-    volumes:
-      - ./main:/main
-    depends_on:
-      - postgres
-      - kafka
-      - redis
-      - kafka-create-topics
-    links:
-      - kafka
-      - redis
-    restart: on-failure
+  # faust:
+  #   build:
+  #     context: .
+  #     dockerfile: ./dockerfiles/py/Dockerfile
+  #   command: faust -A app.faust_task:app worker -l info
+  #   env_file:
+  #     - ./.envs/.database
+  #   volumes:
+  #     - ./main:/main
+  #   depends_on:
+  #     - py
+  #     - postgres
+  #     - kafka
+  #     - redis
+  #     - kafka-create-topics
+  #   links:
+  #     - kafka
+  #     - redis
+  #   restart: on-failure
 
 
   postgres:
@@ -52,7 +52,7 @@ services:
   redis:
     image: redis:5.0.5
     ports:
-      - "6379:6379"
+      - "6380:6379"
     expose:
       - "6379"
     command: [ "redis-server", "--protected-mode", "no" ]

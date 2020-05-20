@@ -3,5 +3,5 @@ POSTGRES_USER=user
 POSTGRES_PASSWORD=password
 POSTGRES_DB=db
 
-REDIS_SERVER=redis://redis:6379/0
+REDIS_SERVER=redis://redis:6380/0
 KAFKA_SERVER=kafka://kafka:9092

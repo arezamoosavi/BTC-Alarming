@@ -1,15 +1,16 @@
+import os
 import faust
 
-# redis_server = os.environ.get('REDIS_SERVER')
-# kafka_broker = os.environ.get('KAFKA_SERVER')
+redis_server = os.environ.get('REDIS_SERVER','redis://redis:6380/0')
+kafka_broker = os.environ.get('KAFKA_SERVER', 'kafka://kafka:9092')
 
 app = faust.App(
     version=1,
     autodiscover=True,
     origin='app',
     id="1",
-    broker='kafka://kafka:9092',
-    store='redis://redis:6379/0',
+    broker=kafka_broker,
+    store=redis_server,
     key_serializer='json',
     value_serializer='json',
     )
@@ -22,20 +23,38 @@ test_topic = app.topic('test')
 async def on_started():
     print('APP STARTED')
 
-@app.timer(interval=10)
+@app.timer(interval=60)
 async def every_minute():
-    print(await adding.ask(value=5))
+    print("Faust Is Up! ")
 
 
 @app.agent(test_topic)
-async def adding(stream):
+async def getnumber(stream):
     async for value in stream:
         print('the number is: ')
         yield value
-
 
 
 @app.agent()
 async def greet(greetings):
     async for greeting in greetings:
         print(greeting)
+
+
+from pydantic import BaseModel
+
+class jdict(BaseModel):
+    a: float
+    b: float
+
+
+@app.agent(test_topic)
+async def getdict(dics):
+    async for dic in dics:
+
+        # dic = dict(dic)
+        obj = jdict(**dic)
+
+        print('inside: ', obj.dict())
+
+        yield obj.dict()
