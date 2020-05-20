@@ -4,6 +4,7 @@ from db.handler import DBPostgre
 from db.models import BTC_EUR, BTC_USD
 from pydantic import BaseModel
 
+
 pg = DBPostgre()
 
 
@@ -37,9 +38,18 @@ class BTCValues:
         value = await getUSDBTC()
         saved = await pg.saveData(database=BTC_USD, data=value.dict())
         print(saved)
+        await BTCValues.make_noise(database=BTC_USD, currValue=value)
     
     @staticmethod
     async def get_save_EUR():
         value = await getEURBTC()
         saved = await pg.saveData(database=BTC_EUR, data=value.dict())
         print(saved)
+        await BTCValues.make_noise(database=BTC_EUR, currValue=value)
+
+    @staticmethod
+    async def make_noise(database, currValue):
+        prevValue = await pg.getLast(database=database)
+        if float(prevValue.amount) < float(currValue.amount):
+            print('\n'*10, ' UPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP')
+    

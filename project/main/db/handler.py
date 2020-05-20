@@ -17,9 +17,13 @@ class DBPostgre:
         await self.initdb()
         print("all EUR: ")
         print(await BTC_EUR.all())
+        obj = await BTC_EUR.all().order_by('-created_at').first()
+        print('SIIIIIIIIIIII',obj.amount)
         
         print("all USD: ")
         print(await BTC_USD.all())
+        obj = await BTC_USD.all().order_by('-created_at').first()
+        print('SIIIIIIIIIIII',obj.amount)
     
 
     async def saveData(self, database, data):
@@ -27,3 +31,8 @@ class DBPostgre:
         btc = await database.create(**data)
         print('SAVED to USD_BTC table!!')
         return btc
+    
+    async def getLast(self, database):
+        await self.initdb()
+
+        return await database.all().order_by('-created_at').first()
