@@ -9,7 +9,7 @@ logging.basicConfig(filename='logfiles.log',
 
 if __name__ == "__main__":
     try:
-        asyncio.get_event_loop().run_until_complete(getBTC(times=3))
+        asyncio.get_event_loop().run_until_complete(getBTC(times=1))
         exit(1)
 
     except Exception as e:

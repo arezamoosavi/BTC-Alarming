@@ -24,5 +24,5 @@ class BTC_EUR(Model):
         table_description = "This table contains bitcoin value in euro"
 
     def __str__(self):
-        return "bitcoin in {} is {} us dollar".format(self.created_at, self.amount)
+        return "bitcoin in {} is {} euro".format(self.created_at, self.amount)
 

@@ -1,5 +1,6 @@
 import os
 import faust
+from app.collectBtc import BTCValues
 
 redis_server = os.environ.get('REDIS_SERVER','redis://redis:6380/0')
 kafka_broker = os.environ.get('KAFKA_SERVER', 'kafka://kafka:9092')
@@ -21,40 +22,18 @@ test_topic = app.topic('test')
 
 @app.task
 async def on_started():
-    print('APP STARTED')
-
-@app.timer(interval=60)
-async def every_minute():
-    print("Faust Is Up! ")
+    print('MAIN APP STARTED')
 
 
-@app.agent(test_topic)
-async def getnumber(stream):
-    async for value in stream:
-        print('the number is: ')
-        yield value
+@app.timer(interval=10)
+async def fetchBitcoin():
+    #fn: to get data1 and save
+    await BTCValues.get_save_USD()
+    await BTCValues.get_save_EUR()
+
+    print('Done First phase!')
 
 
-@app.agent()
-async def greet(greetings):
-    async for greeting in greetings:
-        print(greeting)
+    #fn: alarm
 
 
-from pydantic import BaseModel
-
-class jdict(BaseModel):
-    a: float
-    b: float
-
-
-@app.agent(test_topic)
-async def getdict(dics):
-    async for dic in dics:
-
-        # dic = dict(dic)
-        obj = jdict(**dic)
-
-        print('inside: ', obj.dict())
-
-        yield obj.dict()

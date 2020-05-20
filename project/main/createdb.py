@@ -7,11 +7,16 @@ logging.basicConfig(filename='logfiles.log',
                     format="[%(asctime)s] {%(pathname)s:%(lineno)d} %(levelname)s - %(message)s")
 
 
+pg = DBPostgre()
+
+async def main():
+    await pg.checkall()
 
 if __name__ == "__main__":
 
     try:
-        run_async(DBPostgre.create_all())
+        
+        run_async(main())
 
         print('DBs are created!')
 

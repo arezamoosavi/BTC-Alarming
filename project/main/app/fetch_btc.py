@@ -1,12 +1,20 @@
 import httpx
 from time import sleep
 from pydantic import BaseModel
+from db.handler import DBPostgre
+from db.models import BTC_USD
+
+pg = DBPostgre()
 
 class BTC(BaseModel):
     amount: float
 
 async def printHandler(item: BTC):
     btc_obj = BTC(**item)
+    gg = await pg.saveData(database=BTC_USD, data=btc_obj.dict())
+    print('SAVED! Hoooooooooooooooooora')
+    print(gg)
+    
     print(btc_obj, '  from pydantic! \n')
 
 

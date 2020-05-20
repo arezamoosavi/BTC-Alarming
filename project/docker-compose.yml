@@ -14,6 +14,12 @@ services:
       - ./.envs/.database
     depends_on:
       - postgres
+      - kafka
+      - redis
+      - kafka-create-topics
+    links:
+      - kafka
+      - redis
     restart: "no"
 
   # faust:
