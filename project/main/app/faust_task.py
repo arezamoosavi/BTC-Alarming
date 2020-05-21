@@ -1,6 +1,11 @@
 import os
+import logging
 import faust
 from app.collectBtc import BTCValues
+
+logging.basicConfig(filename='mainfaustlogfiles.log',
+                    level=logging.DEBUG,
+                    format="[%(asctime)s] {%(pathname)s:%(lineno)d} %(levelname)s - %(message)s")
 
 redis_server = os.environ.get('REDIS_SERVER','redis://redis:6380/0')
 kafka_broker = os.environ.get('KAFKA_SERVER', 'kafka://kafka:9092')
@@ -32,8 +37,5 @@ async def fetchBitcoin():
     await BTCValues.get_save_EUR()
 
     print('Done First phase!')
-
-
-    #fn: alarm
 
 

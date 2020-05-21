@@ -19,37 +19,45 @@ async def getUSDBTC():
     async with httpx.AsyncClient() as client:
         r = await client.get(usd_btc_url)
 
-    item = r.json()['data']
-    btc_obj = BTC(**item)
-    return btc_obj
+    try:
+        item = r.json()['data']
+        btc_obj = BTC(**item)
+        return btc_obj
+    except Exception as e:
+        print('Error! {}'.format(e))
+        return 0
 
 async def getEURBTC():
     async with httpx.AsyncClient() as client:
         r = await client.get(eur_btc_url)
-
-    item = r.json()['data']
-    btc_obj = BTC(**item)
-    return btc_obj
+    try:
+        item = r.json()['data']
+        btc_obj = BTC(**item)
+        return btc_obj
+    except Exception as e:
+        print('Error! {}'.format(e))
+        return 0
 
 class BTCValues:
     
     @staticmethod
     async def get_save_USD():
         value = await getUSDBTC()
+        await BTCValues.make_noise(database=BTC_USD, currValue=value)
         saved = await pg.saveData(database=BTC_USD, data=value.dict())
         print(saved)
-        await BTCValues.make_noise(database=BTC_USD, currValue=value)
     
     @staticmethod
     async def get_save_EUR():
         value = await getEURBTC()
+        await BTCValues.make_noise(database=BTC_EUR, currValue=value)
         saved = await pg.saveData(database=BTC_EUR, data=value.dict())
         print(saved)
-        await BTCValues.make_noise(database=BTC_EUR, currValue=value)
 
     @staticmethod
     async def make_noise(database, currValue):
         prevValue = await pg.getLast(database=database)
-        if float(prevValue.amount) < float(currValue.amount):
+        if prevValue.amount < currValue.amount:
+            print('hoyyyyyyyyyyyyyyyyy')
             print('\n'*10, ' UPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP')
     
