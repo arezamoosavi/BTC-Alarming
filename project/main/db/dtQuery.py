@@ -19,8 +19,10 @@ class pgQuery:
         
         conn = await asyncpg.connect(self.db_url)
         row = await conn.fetch('SELECT amount FROM {}'.format(database))
+        await conn.close()
         try:
             data = dict(row[-1])
+            print('FRom dtQuery.GetLast: ', data)
             return float(data['amount'])
         except Exception as e:
             print('Error! {}'.format(e))

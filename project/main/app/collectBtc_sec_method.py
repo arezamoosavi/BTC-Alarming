@@ -16,7 +16,7 @@ eur_btc_url= "https://api.coinbase.com/v2/prices/spot?currency=EUR"
 
 async def getUSDBTC():
     async with httpx.AsyncClient() as client:
-        r = await client.get(usd_btc_url)
+        r = await client.get(usd_btc_url, timeout=None)
 
     try:
         item = r.json()['data']
@@ -60,4 +60,7 @@ class BTCValues:
         if prevValue < currValue.amount:
             print('hoyyyyyyyyyyyyyyyyy')
             print('\n'*10, ' UPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP')
+        else:
+            print('NAAAAAAAAAAA')
+            print('\n'*10, ' DaWWWWWWWWWWWWWWWn')
     
