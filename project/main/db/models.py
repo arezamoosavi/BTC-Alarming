@@ -4,7 +4,7 @@ from tortoise.models import Model
 
 class BTC_USD(Model):
     id = fields.IntField(pk=True)
-    amount = fields.FloatField()
+    amount = fields.FloatField(source_field='amount')
     created_at = fields.DatetimeField(auto_now_add=True)
 
     class Meta:
@@ -16,7 +16,7 @@ class BTC_USD(Model):
 
 class BTC_EUR(Model):
     id = fields.IntField(pk=True)
-    amount = fields.FloatField()
+    amount = fields.FloatField(source_field='amount')
     created_at = fields.DatetimeField(auto_now_add=True)
 
     class Meta:

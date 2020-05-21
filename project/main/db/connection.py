@@ -27,7 +27,39 @@ class Postgres:
         row = await conn.fetchrow(
             'SELECT * FROM testusers WHERE name = $1', 'Bob')
         
-        print(row, type(row))
+        print(dict(row), type(row))
+
+        # test ideas:1
+        print('------test idea1---------')
+        record=('Ali',datetime.utcnow())
+        await conn.execute('''
+            INSERT INTO testusers(name, dob) VALUES($1, $2)
+            ''', record[0], record[1])
+        allrow = await conn.fetch('SELECT name FROM testusers')
+        print(allrow, type(allrow))
+
+        print([dict(row) for row in allrow])
+        print('# test ideas:1 :::::SAVED to USD_BTC table!!')
+
+        # test ideas:2
+        print('------test idea2---------')
+        db = 'testusers'
+        trow = await conn.fetch('SELECT name FROM {}'.format(db))
+        print(trow[-1])
+        print('# test ideas:2 :::::Got it!!')
+
+
+        # test ideas:3
+        print('------test idea3---------')
+        record=('Alireza',datetime.utcnow())
+        que = '''INSERT INTO {}(name, dob) VALUES($1, $2)'''.format('testusers')
+        await conn.execute(que, record[0], record[1])
+
+        allrow = await conn.fetch('SELECT name FROM {}'.format('testusers'))
+        print(allrow, type(allrow))
+        print([dict(row) for row in allrow])
+        print('# test ideas:3 :::::Worked!!')
+
 
         # Drop Table
         query = "DROP TABLE IF EXISTS {} CASCADE;".format("testusers")

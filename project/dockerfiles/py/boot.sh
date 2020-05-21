@@ -5,7 +5,7 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-n=20
+n=9
 
 while [ $n -gt 0 ]
 do

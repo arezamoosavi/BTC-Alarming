@@ -18,12 +18,12 @@ class DBPostgre:
         print("all EUR: ")
         print(await BTC_EUR.all())
         obj = await BTC_EUR.all().order_by('-created_at').first()
-        print('SIIIIIIIIIIII',obj.amount)
+        print('SIIIIIIIIIIII',obj)
         
         print("all USD: ")
         print(await BTC_USD.all())
         obj = await BTC_USD.all().order_by('-created_at').first()
-        print('SIIIIIIIIIIII',obj.amount)
+        print('SIIIIIIIIIIII',obj)
     
 
     async def saveData(self, database, data):

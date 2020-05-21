@@ -30,4 +30,4 @@ async def getBTC(times):
         jr = r.json()
         print(jr, '\n\n')
         await printHandler(jr['data'])
-        sleep(5)
+        sleep(1)

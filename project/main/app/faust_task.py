@@ -1,7 +1,8 @@
 import os
 import logging
 import faust
-from app.collectBtc import BTCValues
+from app.collectBtc_first_method import BTCValues as firstBTC
+from app.collectBtc_sec_method import BTCValues as secBTC
 
 logging.basicConfig(filename='mainfaustlogfiles.log',
                     level=logging.DEBUG,
@@ -30,12 +31,19 @@ async def on_started():
     print('MAIN APP STARTED')
 
 
+# @app.timer(interval=10)
+# async def fetchBitcoin():
+#     await firstBTC.get_save_USD()
+#     await firstBTC.get_save_EUR()
+
+#     print('Done First Method!')
+
+
 @app.timer(interval=10)
 async def fetchBitcoin():
-    #fn: to get data1 and save
-    await BTCValues.get_save_USD()
-    await BTCValues.get_save_EUR()
+    await secBTC.get_save_USD()
+    await secBTC.get_save_EUR()
 
-    print('Done First phase!')
+    print('Done Second Method!')
 
 
