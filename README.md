@@ -18,3 +18,5 @@ Data: Postgre, Asyncpg, Tortoise, Pydantic
 
 
 Build: docker, docker-compose
+
+## [Medium](https://medium.com/@sdamoosavi/real-time-bitcoin-notification-with-faust-f8fc32490fa5)
